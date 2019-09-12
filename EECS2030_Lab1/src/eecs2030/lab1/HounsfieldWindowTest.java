@@ -93,7 +93,7 @@ public class HounsfieldWindowTest {
 			// assert that exp is equal to got
 			assertEquals(error, exp, got);
 		}
-		IS_CTOR_OK = false;
+		IS_CTOR_OK = true;
 	}
 
 	@Test
