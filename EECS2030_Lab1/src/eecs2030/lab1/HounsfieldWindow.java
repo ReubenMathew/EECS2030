@@ -63,19 +63,21 @@ public class HounsfieldWindow {
 	}
 
 	public int setLevel(int level) {
+		int old = this.level;
 		if ((level < Hounsfield.MIN_VALUE) || (level > Hounsfield.MAX_VALUE))
 			throw new IllegalArgumentException();
 		else
 			this.level = level;
-		return level;
+		return old;
 	}
 
 	public int setWidth(int width) {
+		int old = this.width;
 		if (width < 1)
 			throw new IllegalArgumentException();
 		else
 			this.width = width;
-		return width;
+		return old;
 	}
 
 	public double map(Hounsfield h) {

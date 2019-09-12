@@ -38,7 +38,7 @@ public class Hounsfield {
 	 * The maximum Hounsfield unit reported by medical CT scanners Look up the
 	 * correct value in the documentation
 	 */
-	public static final int MAX_VALUE = 3072;
+	public static final int MAX_VALUE = 3071;
 
 	/**
 	 * Initializes this Hounsfield unit to have a value of zero.
@@ -136,7 +136,7 @@ public class Hounsfield {
 	@Override
 	public String toString() {
 		// Change the next line to return the approriate string
-		String s = this.value + "HU";
+		String s = this.value + " HU";
 		return s;
 	}
 }
