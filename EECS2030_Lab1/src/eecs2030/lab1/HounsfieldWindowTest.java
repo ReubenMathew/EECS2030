@@ -97,6 +97,34 @@ public class HounsfieldWindowTest {
 	}
 
 	@Test
+	public void test04_ctorThrowsOnBadLevel() {
+		final int[] BAD_LEVELS = {-10000, -1025, 3072, 9999};
+		for (int level : BAD_LEVELS) {
+			try {
+				new HounsfieldWindow(level, 10);
+				fail(String.format("new HounsfieldWindow(%s, 10) should throw an exception", level));
+			}
+			catch (IllegalArgumentException x) {
+				// ok
+			}
+		}
+	}
+	
+	@Test
+	public void test04_ctorThrowsOnBadWidth() {
+		final int[] BAD_WIDTHS = {-10000, -10, 0};
+		for (int width : BAD_WIDTHS) {
+			try {
+				new HounsfieldWindow(0, width);
+				fail(String.format("new HounsfieldWindow(0, %s) should throw an exception", width));
+			}
+			catch (IllegalArgumentException x) {
+				// ok
+			}
+		}
+	}
+	
+	@Test
 	public void test05_setLevel() {
 		assumeTrue("test requires a correct implementation of HounsfieldWindow()", IS_NO_ARG_CTOR_OK);
 		

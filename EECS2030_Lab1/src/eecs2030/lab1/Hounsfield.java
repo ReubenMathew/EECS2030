@@ -123,9 +123,10 @@ public class Hounsfield {
 	 *                                  scanners.
 	 */
 	public int set(int value) {
+		int old = this.value;
 		checkValue(value);
 		this.value = value;
-		return value;
+		return old;
 	}
 
 	/**
