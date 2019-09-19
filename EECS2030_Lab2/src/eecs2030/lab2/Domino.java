@@ -1,5 +1,6 @@
 package eecs2030.lab2;
 
+import java.util.Objects;
 
 /*
  * NOTE TO STUDENTS: The four methods you need to complete can 
@@ -70,24 +71,45 @@ public class Domino implements Comparable<Domino> {
 	
 	
 	public int getSmallerValue() {
-		
+		return this.val1 <= this.val2 ? val1 : val2;
 	}
 
 	
 	public int getLargerValue() {
-		
+		return this.val1 >= this.val2 ? val1 : val2;
 	}
 
 	
 	@Override
 	public int compareTo(Domino other) {
+		if (other.getSmallerValue() == this.getSmallerValue()) {
+			if(other.getLargerValue() == this.getLargerValue())
+				return 0;
+			else if (other.getLargerValue() > this.getLargerValue())
+				return -1;
+			else if (other.getLargerValue() < this.getLargerValue())
+				return 1;
+		}else if (other.getSmallerValue() > this.getSmallerValue())
+			return -1;
+		else if (other.getSmallerValue() < this.getSmallerValue())
+			return 1;
+		return 1;
+		
 		
 	}
 	
 
 	@Override
 	public boolean equals(Object obj) {
-		
+	    if (this == obj)
+	        return true;
+	    // null check
+	    if (obj == null)
+	        return false;
+	    if (getClass() != obj.getClass())
+	        return false;
+	    Domino domino = (Domino) obj;
+	    return (Objects.equals(val1, domino.val1) && Objects.equals(val2, domino.val2)) || (Objects.equals(val1, domino.val2) && Objects.equals(val2, domino.val1));
 	}
 	
 
