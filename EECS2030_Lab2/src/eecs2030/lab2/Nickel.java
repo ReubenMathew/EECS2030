@@ -26,7 +26,14 @@ public class Nickel implements Comparable<Nickel> {
 	}
 
 	public boolean equals(Object obj) {
-		return true;
+		if (this == obj)
+			return true;
+		else if(obj == null)
+			return false;
+		else if(obj.getClass() != this.getClass())
+			return false;
+		else
+			return true;
 	}
 
 	public int hashCode() {
