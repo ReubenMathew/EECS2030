@@ -8,21 +8,23 @@ public class Nickel implements Comparable<Nickel> {
 	 * The monetary value of a nickel in cents.
 	 */
 	public final int CENTS = 5;
-	
+
 	public Nickel(int year) {
-		if (year < 1858)
+		if (year < 1858) {
 			throw new IllegalArgumentException();
-		this.year = year;
+		} else {
+			this.year = year;
+		}
 	}
 
 	public int issueYear() {
 		return this.year;
 	}
-	
+
 	public int compareTo(Nickel other) {
-		return (other.year-this.year);
+		return (this.year - other.year);
 	}
-	
+
 	public boolean equals(Object obj) {
 		return true;
 	}
