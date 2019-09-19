@@ -1,7 +1,6 @@
 package eecs2030.lab2;
 
 public class Nickel implements Comparable<Nickel> {
- 	
 
 	private int year;
 
@@ -9,7 +8,7 @@ public class Nickel implements Comparable<Nickel> {
 	 * The monetary value of a nickel in cents.
 	 */
 	public final int CENTS = 5;
-	
+
 	public Nickel(int year) {
 		if (year < 1858) {
 			throw new IllegalArgumentException();
@@ -29,9 +28,9 @@ public class Nickel implements Comparable<Nickel> {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if(obj == null)
+		if (obj == null)
 			return false;
-		if(obj.getClass() != getClass())
+		if (obj.getClass() != getClass())
 			return false;
 		Nickel nickel = (Nickel) obj;
 		return (CENTS == nickel.CENTS);

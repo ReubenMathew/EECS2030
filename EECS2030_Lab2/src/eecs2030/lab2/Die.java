@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
-
 /*
  * NOTE TO STUDENTS: 
  * The constructor that you need to complete can be found on line 47.
@@ -12,47 +11,43 @@ import java.util.Random;
  * The two methods you need to complete can be found at the end of this file.
  */
 
-
-
 public class Die implements Comparable<Die> {
 
 	/**
-	 * A random number generator to simulate rolling the die.
-	 * DO NOT CHANGE THE DECLARATION OF rng. THE UNIT TESTS RELY
-	 * ON BEGIN ABLE TO ACCESS THE RANDOM NUMBER GENERATOR.
+	 * A random number generator to simulate rolling the die. DO NOT CHANGE THE
+	 * DECLARATION OF rng. THE UNIT TESTS RELY ON BEGIN ABLE TO ACCESS THE RANDOM
+	 * NUMBER GENERATOR.
 	 */
 	Random rng = new Random();
-	
+
 	/**
 	 * The array of face values.
 	 */
 	private int[] faces;
-		
+
 	/**
 	 * The current value of the die.
 	 */
 	private int value;
-	
+
 	/**
 	 * The number of faces on a die.
 	 */
 	public static int NUMBER_OF_FACES = 6;
-	
 
 	/*
-	 * You need to implement the no-argument constructor below, and the
-	 * methods compareTo and equals found at the end of the class.
+	 * You need to implement the no-argument constructor below, and the methods
+	 * compareTo and equals found at the end of the class.
 	 */
-	
+
 	public Die() {
 		this.value = 1;
-		
+
 		this.faces = new int[NUMBER_OF_FACES];
 		for (int i = 0; i < NUMBER_OF_FACES; i++) {
-			this.faces[i] = i+1;
+			this.faces[i] = i + 1;
 		}
 	}
-	
 
 	private static boolean isInAscendingOrder(int[] a) {
 		for (int i = 1; i < a.length; i++) {
@@ -62,7 +57,6 @@ public class Die implements Comparable<Die> {
 		}
 		return true;
 	}
-	
 
 	public Die(int[] faces) {
 		if (faces.length != 6) {
@@ -74,7 +68,6 @@ public class Die implements Comparable<Die> {
 		this.faces = Arrays.copyOf(faces, NUMBER_OF_FACES);
 		this.value = this.faces[0];
 	}
-	
 
 	public void setValueToFace(int face) {
 		if (face < 0 || face >= NUMBER_OF_FACES) {
@@ -82,12 +75,10 @@ public class Die implements Comparable<Die> {
 		}
 		this.value = this.faces[face];
 	}
-	
 
 	public int value() {
 		return this.value;
 	}
-	
 
 	public int roll() {
 		int idx = rng.nextInt(Die.NUMBER_OF_FACES);
@@ -95,28 +86,25 @@ public class Die implements Comparable<Die> {
 		return this.value;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.value, this.faces);
 	}
 
-	
 	/*
 	 * You need to implement the compareTo and equals methods below.
 	 * 
 	 */
-	
+
 	@Override
 	public int compareTo(Die other) {
 		if (this.value < other.value)
 			return -1;
-		else if(this.value > other.value)
+		else if (this.value > other.value)
 			return 1;
 		else
 			return 0;
 	}
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -125,13 +113,12 @@ public class Die implements Comparable<Die> {
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
-	        return false;
-		
+			return false;
+
 		Die die = (Die) obj;
-	
-		return ((Arrays.equals(die.faces, this.faces)) && die.value ==  this.value);
-		
+
+		return ((Arrays.equals(die.faces, this.faces)) && die.value == this.value);
+
 	}
-	
 
 }
