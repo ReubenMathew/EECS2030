@@ -17,6 +17,7 @@ public class HounsfieldTest {
 	private static boolean IS_MAX_VALUE_OK = false;
 	private static boolean IS_NO_ARG_CTOR_OK = false;
 	private static boolean IS_CTOR_OK = false;
+	@SuppressWarnings("unused")
 	private static boolean IS_COPY_CTOR_OK = false;
 
 	@Rule
