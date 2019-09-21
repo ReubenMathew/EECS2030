@@ -61,12 +61,12 @@ public class Card implements Comparable<Card> {
 	public int compareTo(Card other) {
 		if (other.rank.ordinal() > this.rank.ordinal()) {
 			return -1;
-		}else if (other.rank.ordinal() < this.rank.ordinal()) {
+		} else if (other.rank.ordinal() < this.rank.ordinal()) {
 			return 1;
-		}else {
+		} else {
 			if (other.suit.ordinal() > this.suit.ordinal()) {
 				return -1;
-			}else if (other.suit.ordinal() < this.suit.ordinal()) {
+			} else if (other.suit.ordinal() < this.suit.ordinal()) {
 				return 1;
 			}
 		}
@@ -79,14 +79,14 @@ public class Card implements Comparable<Card> {
 			return true;
 		if (obj == null)
 			return false;
-		
-		if(getClass() != obj.getClass())
+
+		if (getClass() != obj.getClass())
 			return false;
-		
+
 		Card card = (Card) obj;
-		
+
 		return Objects.equals(card.rank, this.rank) && Objects.equals(card.suit, this.suit);
-			
+
 	}
 
 }
