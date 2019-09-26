@@ -252,7 +252,13 @@ public final class Complex {
 		Complex result = null;
 		String t = s.trim();
 		List<String> parts = Arrays.asList(t.split("\\s+"));
-
+		if (parts.size() != 3)
+			throw new IllegalArgumentException();
+		else if ((parts.get(1) != "+") || (parts.get(1) != "-"))
+			throw new IllegalArgumentException();
+		else if (parts.get(2).charAt(parts.get(2).length() - 1) != 'i')
+			throw new IllegalArgumentException();
+		
 //		if (parts.size() == 3) {
 //			if ((parts.get(1) == "+") || (parts.get(1) == "-"))
 //				if (parts.get(2).charAt(parts.get(2).length() - 1) == 'i') {

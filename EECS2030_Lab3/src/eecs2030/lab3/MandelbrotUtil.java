@@ -1,12 +1,11 @@
 package eecs2030.lab3;
 
 public class MandelbrotUtil {
-	
+
 	private MandelbrotUtil() {
-		
+
 	}
-	
-	
+
 	/**
 	 * Return the number of iterations needed to determine if z(n + 1) = z(n) * z(n) + c
 	 * remains bounded where z(0) = 0 + 0i. z(n + 1) is bounded if its magnitude
@@ -27,6 +26,18 @@ public class MandelbrotUtil {
 	public static int mandelbrotIterations(Complex c, int max) {
 		Complex z = new Complex(0.0, 0.0);
 		
+		int counter = 0;
+		while (true) {
+			if (z.mag() > 2) {
+				break;
+			}
+			z = z.multiply(z);
+			z = z.add(c);
+			counter++;
+			if (counter == max)
+				break;
+			
+		}
 		// You need a loop here. Inside the loop, set z to z * z + c
 		// (i.e. perform one iteration of the equation) and
 		// check if the magnitude of z is greater than 2; if
@@ -36,6 +47,6 @@ public class MandelbrotUtil {
 		// of z is still less than or equal to 2 you should
 		// return max.
 		
-		return max;
+		return counter;
 	}
 }
