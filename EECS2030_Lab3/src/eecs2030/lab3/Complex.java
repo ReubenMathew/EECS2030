@@ -11,6 +11,7 @@ import java.util.List;
  */
 public final class Complex {
 
+
 	private double re;
 	private double im;
 
@@ -45,7 +46,8 @@ public final class Complex {
 		this.re = re;
 		this.im = im;
 	}
-
+	static Complex ONE = new Complex(1,0);
+	static Complex I = new Complex(0,1);
 	/**
 	 * A static factory method that returns a new complex number whose real part is
 	 * equal to re and whose imaginary part is equal to 0.0
@@ -251,14 +253,14 @@ public final class Complex {
 		String t = s.trim();
 		List<String> parts = Arrays.asList(t.split("\\s+"));
 
-		if (parts.size() == 3) {
-			if ((parts.get(1) == "+") || (parts.get(1) == "-"))
-				if (parts.get(2).charAt(parts.get(2).length() - 1) == 'i') {
-					String sign = parts.get(2);
-					result = sign == "-" ? new Complex(Double.parseDouble(parts.get(0)), Double.parseDouble(parts.get(2))) :new Complex(Double.parseDouble(parts.get(0)), Double.parseDouble(parts.get(2)));
-					return result;
-				}
-		}
+//		if (parts.size() == 3) {
+//			if ((parts.get(1) == "+") || (parts.get(1) == "-"))
+//				if (parts.get(2).charAt(parts.get(2).length() - 1) == 'i') {
+//					String sign = parts.get(2);
+//					result = sign == "-" ? new Complex(Double.parseDouble(parts.get(0)), Double.parseDouble(parts.get(2))) :new Complex(Double.parseDouble(parts.get(0)), Double.parseDouble(parts.get(2)));
+//					return result;
+//				}
+//		}
 		// split splits the string s by looking for spaces in s.
 		// If s is a string that might be interpreted as a complex number
 		// then parts will be a list having 3 elements. The first
