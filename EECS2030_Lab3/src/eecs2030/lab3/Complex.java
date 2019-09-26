@@ -11,7 +11,6 @@ import java.util.List;
  */
 public final class Complex {
 
-
 	private double re;
 	private double im;
 
@@ -46,8 +45,10 @@ public final class Complex {
 		this.re = re;
 		this.im = im;
 	}
-	static Complex ONE = new Complex(1,0);
-	static Complex I = new Complex(0,1);
+
+	static Complex ONE = new Complex(1, 0);
+	static Complex I = new Complex(0, 1);
+
 	/**
 	 * A static factory method that returns a new complex number whose real part is
 	 * equal to re and whose imaginary part is equal to 0.0
@@ -198,9 +199,7 @@ public final class Complex {
 			return false;
 		if (this.getClass() != obj.getClass())
 			return false;
-
 		Complex c = (Complex) obj;
-
 		return (c.re == this.re) && (c.im == this.im);
 	}
 
@@ -252,13 +251,20 @@ public final class Complex {
 		Complex result = null;
 		String t = s.trim();
 		List<String> parts = Arrays.asList(t.split("\\s+"));
-		if (parts.size() != 3)
+		try {
+			double real = Double.parseDouble(parts.get(0));
+			char sign = parts.get(1).charAt(0);
+			double imag = Double.parseDouble(parts.get(2).substring(0, parts.get(2).length() - 1));
+			if (sign == '+')
+				result = new Complex(real, imag);
+			else if (sign == '-')
+				result = new Complex(real, -1 * imag);
+			else
+				throw new IllegalArgumentException();
+		} catch (Exception e) {
 			throw new IllegalArgumentException();
-		else if ((parts.get(1) != "+") || (parts.get(1) != "-"))
-			throw new IllegalArgumentException();
-		else if (parts.get(2).charAt(parts.get(2).length() - 1) != 'i')
-			throw new IllegalArgumentException();
-		
+		}
+
 //		if (parts.size() == 3) {
 //			if ((parts.get(1) == "+") || (parts.get(1) == "-"))
 //				if (parts.get(2).charAt(parts.get(2).length() - 1) == 'i') {
