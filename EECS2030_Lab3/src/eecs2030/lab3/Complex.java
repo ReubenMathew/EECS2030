@@ -265,14 +265,6 @@ public final class Complex {
 			throw new IllegalArgumentException();
 		}
 
-//		if (parts.size() == 3) {
-//			if ((parts.get(1) == "+") || (parts.get(1) == "-"))
-//				if (parts.get(2).charAt(parts.get(2).length() - 1) == 'i') {
-//					String sign = parts.get(2);
-//					result = sign == "-" ? new Complex(Double.parseDouble(parts.get(0)), Double.parseDouble(parts.get(2))) :new Complex(Double.parseDouble(parts.get(0)), Double.parseDouble(parts.get(2)));
-//					return result;
-//				}
-//		}
 		// split splits the string s by looking for spaces in s.
 		// If s is a string that might be interpreted as a complex number
 		// then parts will be a list having 3 elements. The first
