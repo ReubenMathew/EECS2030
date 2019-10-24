@@ -32,7 +32,7 @@ public class LZWCompressor {
 	// input sequence to be encoded
 	// dictionary to use when encoding/decoding
 	String input;
-
+	LZWDictionary d;
 
 	/**
 	 * Initialize this LZWCompressor to encode/decode a specified input string.
@@ -55,6 +55,8 @@ public class LZWCompressor {
 
 		if (input.length()==0)
 			throw new IllegalArgumentException();
+		this.input = input;
+		d = new LZWDictionary(input);
 
 	}
 
@@ -79,7 +81,7 @@ public class LZWCompressor {
 	 */
 	public LZWDictionary getDictionary() {
 
-		
+		return this.d;
 		
 	}
 
@@ -98,12 +100,8 @@ public class LZWCompressor {
 	 */
 	public List<Integer> encode() {
 
-
 		
-		
-		
-		
-		
+		return null;		
 		
 
 	}
@@ -133,7 +131,7 @@ public class LZWCompressor {
 
 
 		
-		
+		return null;
 		
 		
 
@@ -160,7 +158,7 @@ public class LZWCompressor {
 	public double compressionRatio() {
 
 		
-
+		return 0.0;
 		
 		
 

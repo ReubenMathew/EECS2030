@@ -42,6 +42,7 @@ public class LZWDictionary {
 
 
 	// FIELDS
+	private int counter = 0;
 	// map  (for ease of checking existence of entries)
 	Map<String, Integer> m = new LinkedHashMap<>();
 	// list (ease of recall of an entry)
@@ -72,20 +73,20 @@ public class LZWDictionary {
 		// your tester on this ctor
 		if (characters.length()==0)
 			throw new IllegalArgumentException();
-		int counter = 0;
+		
 		for (int i = 0; i < characters.length(); i++) {
 			String s = String.valueOf(characters.charAt(i));
 			if (!this.contains(s)) {
 				m.put(s, counter);
-				System.out.println(m.toString());
-				System.out.println(m.get(s));
+//				System.out.println(m.toString());
+//				System.out.println(m.get(s));
 				l.add(s);
 				counter++;
 			}
 		}		
-		System.out.println("\n\n"+characters);
-		System.out.println(m.toString());
-		System.out.println(l.toString());
+//		System.out.println("\n\n"+characters);
+//		System.out.println(m.toString());
+//		System.out.println(l.toString());
 		
 		
 	}
@@ -132,9 +133,9 @@ public class LZWDictionary {
 	 */
 	public int indexOf(String s) {
 		
-
-		return 0;
-		
+		if (m.containsKey(s))
+			return m.get(s);
+		return -1;	
 		
 		
 	}
@@ -196,12 +197,7 @@ public class LZWDictionary {
 	 *         otherwise
 	 */
 	public boolean hasIndex(int index) {
-		
-
-		return true;
-		
-		
-		
+		return m.containsValue(index);		
 	}
 
 	
@@ -216,9 +212,16 @@ public class LZWDictionary {
 	 *         it is already in this dictionary
 	 */
 	public int add(String entry) {
-		
-		return 0;
-		
+		if (m.containsKey(entry)) {
+			return m.get(entry);
+		} else {
+			System.out.println(m.toString());
+			m.put(entry, counter);
+			System.out.println(m.toString());
+			int a = counter;
+			counter++;
+			return a;
+		}
 	}
 
 
@@ -233,7 +236,8 @@ public class LZWDictionary {
 	 */
 	public boolean contains(String s) {
 		
-		if (m.containsValue(s))
+		if (m.containsKey(s))
+			
 			return true;
 		return false;
 		
@@ -255,7 +259,7 @@ public class LZWDictionary {
 	public int size() {
 		
 
-		return m.size();
+		return m.size() == 0 ? -1 : m.size();
 		
 		
 	}
