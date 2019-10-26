@@ -99,8 +99,6 @@ public class LZWCompressor {
 	 * 
 	 */
 	
-	private List<Integer> enc = new ArrayList<>(); 
-	
 	public List<Integer> encode() {
 		List<Integer> encoded = new ArrayList<>();
 		String w = String.valueOf(this.input.charAt(0));
@@ -117,7 +115,6 @@ public class LZWCompressor {
 			}
 		}
 		encoded.add(this.d.indexOf(w));
-		this.enc = encoded;
 		d = new LZWDictionary(this.input);
 //		System.out.println(d.toString());
 		return encoded;
