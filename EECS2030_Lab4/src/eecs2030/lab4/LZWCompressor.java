@@ -19,7 +19,7 @@ import java.util.List;
  * <p>
  * Class invariant: The LZWDictionary always holds only the initial single character 
  * patterns as its entries (i.e. it may grow during encode/decode operations, however must
- * be reset to its initial state after an encode/decode operation).
+ * be reset to its initial state after an encode/deco          de operation).
  * </p> 
  * 
  * 
@@ -32,7 +32,7 @@ public class LZWCompressor {
 	// input sequence to be encoded
 	// dictionary to use when encoding/decoding
 	String input;
-	LZWDictionary d;
+	public LZWDictionary d;
 
 	/**
 	 * Initialize this LZWCompressor to encode/decode a specified input string.
@@ -56,7 +56,7 @@ public class LZWCompressor {
 		if (input.length()==0)
 			throw new IllegalArgumentException();
 		this.input = input;
-		d = new LZWDictionary(input);
+		d = new LZWDictionary(this.input);
 
 	}
 
@@ -98,12 +98,29 @@ public class LZWCompressor {
 	 * patterns) learned by an LZWDictionary during the encoding process
 	 * 
 	 */
+	
+	private List<Integer> enc = new ArrayList<>(); 
+	
 	public List<Integer> encode() {
-
-		
-		return null;		
-		
-
+		List<Integer> encoded = new ArrayList<>();
+		String w = String.valueOf(this.input.charAt(0));
+		for (int i = 1; i < this.input.length(); i++) {
+			String c = String.valueOf(this.input.charAt(i));
+//			System.out.println(w + " " + c + " " + d.toString());
+			String wc = w+c;
+			if (this.d.contains(wc)) {
+				w = wc;
+			} else {
+				encoded.add(this.d.indexOf(w));
+				this.d.add(wc);
+				w = c;
+			}
+		}
+		encoded.add(this.d.indexOf(w));
+		this.enc = encoded;
+		d = new LZWDictionary(this.input);
+//		System.out.println(d.toString());
+		return encoded;
 	}
 
 
@@ -127,14 +144,45 @@ public class LZWCompressor {
 	 * @throws an IllegalArgumentException if encoded is an empty list
 	 * 
 	 */
+	
 	public String decode(List<Integer> encoded) {
-
-
+		d = new LZWDictionary(this.input);
+		if (encoded.size() == 0)
+			throw new IllegalArgumentException();
 		
-		return null;
+		String out = "";
 		
+		int prev = encoded.get(0);
+		out += d.get(prev);
+		String s;
+		int next;
+		for (int i = 1; i < encoded.size(); i++) {
+			next = encoded.get(i);
+			if (d.hasIndex(next)) {
+				s = d.get(next);
+			} else {
+				s = d.get(prev);
+				String c = String.valueOf(s.charAt(0));
+				s += c;				
+			}
+			
+			out += s;
+			
+			String entry = d.get(prev) + String.valueOf(s.charAt(0));
+			this.d.add(entry);
+			prev = next;
+			
+//			s += this.d.getList().get(i);
+		}
+//		System.out.println(out);
+		//		System.out.println(encoded.toString());
+//		System.out.println(d.getList().toString());
+//		for (int i : encoded) {
+//			s += this.d.getList().get(i);
+//		}
+		d = new LZWDictionary(this.input);
+		return out;
 		
-
 	}
 
 
@@ -156,12 +204,9 @@ public class LZWCompressor {
 	 * 
 	 */
 	public double compressionRatio() {
-
+//		System.out.println(this.input + " " +  this.encode());
+		return ((double) this.input.length() / (double) this.encode().size());
 		
-		return 0.0;
-		
-		
-
 	}
 
 
@@ -175,10 +220,10 @@ public class LZWCompressor {
 
 		LZWCompressor codec = new LZWCompressor("ababababa");
 
-		//codec = new LZWCompressor("#@$*@#($*@#$@(#*$@(#*$@#$");
-		//codec = new LZWCompressor("the fat the cat the bat the rat the mat the sat the tat");
-		//codec = new LZWCompressor("1231411212312312312124312413");
-		//codec = new LZWCompressor("thefatthecatthebattheratthematthesatthetatthefatthecatthebattheratthematthesatthe");
+//		codec = new LZWCompressor("#@$*@#($*@#$@(#*$@(#*$@#$");
+//		codec = new LZWCompressor("the fat the cat the bat the rat the mat the sat the tat");
+//		codec = new LZWCompressor("1231411212312312312124312413");
+//		codec = new LZWCompressor("thefatthecatthebattheratthematthesatthetatthefatthecatthebattheratthematthesatthe");
 
 
 

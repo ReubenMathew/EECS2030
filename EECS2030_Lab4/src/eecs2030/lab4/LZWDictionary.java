@@ -135,8 +135,7 @@ public class LZWDictionary {
 		
 		if (m.containsKey(s))
 			return m.get(s);
-		return -1;	
-		
+		return -1;			 
 		
 	}
 
@@ -215,9 +214,8 @@ public class LZWDictionary {
 		if (m.containsKey(entry)) {
 			return m.get(entry);
 		} else {
-			System.out.println(m.toString());
+			l.add(entry);
 			m.put(entry, counter);
-			System.out.println(m.toString());
 			int a = counter;
 			counter++;
 			return a;

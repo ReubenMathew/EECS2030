@@ -194,6 +194,8 @@ public class LZWCompressorTest {
 		List<String> clist = new ArrayList<String>(codec.getDictionary().getList());
 		
 		codec.encode();
+		System.out.println(clist);
+		System.out.println(codec.getDictionary().getList());
 		
 		assertEquals("Class invariant not maintained after encode",clist, codec.getDictionary().getList());
 		assertEquals("Class invariant not maintained after encode", cmap, codec.getDictionary().getMap());
@@ -208,8 +210,8 @@ public class LZWCompressorTest {
 		LZWCompressor codec = new LZWCompressor("ababababa");
 		List<Integer> enc = Arrays.asList(0,1,2,4,3);
 		
-				
 		String dec = codec.decode(enc);
+
 		assertEquals("ababababa", dec);
 		
 	}
@@ -223,6 +225,7 @@ public class LZWCompressorTest {
 		
 		
 		String dec = codec.decode(enc);
+		
 		assertEquals("#@$*@#($*@#$@(#*$@(#*$@#$", dec);
 	}
 	
