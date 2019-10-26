@@ -1,26 +1,27 @@
 package eecs2030.lab4;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * A simple class to implement LZW compression (encoding) and decompression (decoding) of 
- * a given input string.
+ * A simple class to implement LZW compression (encoding) and decompression
+ * (decoding) of a given input string.
  * 
  * 
  * <p>
- * The LZWCompressor maintains a list of characters representing an input sequence to be 
- * encoded/decoded. It also maintains a local LZWDictionary, which is initialized with unique
- * characters from the input sequence, and is used to encode/decode the input sequence.
+ * The LZWCompressor maintains a list of characters representing an input
+ * sequence to be encoded/decoded. It also maintains a local LZWDictionary,
+ * which is initialized with unique characters from the input sequence, and is
+ * used to encode/decode the input sequence.
  * <p>
  * 
  * <p>
- * Class invariant: The LZWDictionary always holds only the initial single character 
- * patterns as its entries (i.e. it may grow during encode/decode operations, however must
- * be reset to its initial state after an encode/deco          de operation).
- * </p> 
+ * Class invariant: The LZWDictionary always holds only the initial single
+ * character patterns as its entries (i.e. it may grow during encode/decode
+ * operations, however must be reset to its initial state after an encode/deco
+ * de operation).
+ * </p>
  * 
  * 
  * @author eecs2030
@@ -39,30 +40,32 @@ public class LZWCompressor {
 	 * 
 	 * 
 	 * <p>
-	 * A list of characters is initialized from the sequence of characters specified in
-	 * a provided string.  The unique characters from this string are also used to initialize
-	 * an LZWDictionary maintained and used by the LZWCompressor when encoding/decoding
+	 * A list of characters is initialized from the sequence of characters specified
+	 * in a provided string. The unique characters from this string are also used to
+	 * initialize an LZWDictionary maintained and used by the LZWCompressor when
+	 * encoding/decoding
 	 * </p>
 	 * 
 	 * 
 	 * 
-	 * @param input a string representing an input sequence of characters to be encoded/decoded
+	 * @param input a string representing an input sequence of characters to be
+	 *              encoded/decoded
 	 * 
 	 * @throws an IllegalArgumentException if the input string is empty
 	 * 
 	 */
 	public LZWCompressor(String input) {
 
-		if (input.length()==0)
+		if (input.length() == 0)
 			throw new IllegalArgumentException();
 		this.input = input;
 		d = new LZWDictionary(this.input);
 
 	}
 
-
 	/**
-	 * Returns the original input sequence to be encoded/decoded by this LZWCompressor
+	 * Returns the original input sequence to be encoded/decoded by this
+	 * LZWCompressor
 	 * 
 	 * @return a string representing the original input sequence
 	 * 
@@ -73,7 +76,6 @@ public class LZWCompressor {
 
 	}
 
-
 	/**
 	 * Returns the dictionary used by this LZWCompressor
 	 * 
@@ -82,10 +84,8 @@ public class LZWCompressor {
 	public LZWDictionary getDictionary() {
 
 		return this.d;
-		
+
 	}
-
-
 
 	/**
 	 * Generates an LZW encoding of the input sequence
@@ -94,18 +94,19 @@ public class LZWCompressor {
 	 * <p>
 	 * Uses the LZW encoding algorithm given in the lab4 specification
 	 * 
-	 * @return a list of integers representing the sequence of codes (indexes of character 
-	 * patterns) learned by an LZWDictionary during the encoding process
+	 * @return a list of integers representing the sequence of codes (indexes of
+	 *         character patterns) learned by an LZWDictionary during the encoding
+	 *         process
 	 * 
 	 */
-	
+
 	public List<Integer> encode() {
 		List<Integer> encoded = new ArrayList<>();
 		String w = String.valueOf(this.input.charAt(0));
 		for (int i = 1; i < this.input.length(); i++) {
 			String c = String.valueOf(this.input.charAt(i));
 //			System.out.println(w + " " + c + " " + d.toString());
-			String wc = w+c;
+			String wc = w + c;
 			if (this.d.contains(wc)) {
 				w = wc;
 			} else {
@@ -120,12 +121,6 @@ public class LZWCompressor {
 		return encoded;
 	}
 
-
-
-
-
-
-
 	/**
 	 * Decodes an LZW encoding to generate the original input sequence
 	 * 
@@ -133,22 +128,23 @@ public class LZWCompressor {
 	 * <p>
 	 * Uses the LZW decoding algorithm given in the lab4 specification
 	 * 
-	 * @param encoded a list of integers representing a sequence of codes (indexes 
-	 * of character patterns) learned by an LZWDictionary during the encoding process
+	 * @param encoded a list of integers representing a sequence of codes (indexes
+	 *                of character patterns) learned by an LZWDictionary during the
+	 *                encoding process
 	 * 
 	 * @return a string representation of the decoded input sequence
 	 * 
 	 * @throws an IllegalArgumentException if encoded is an empty list
 	 * 
 	 */
-	
+
 	public String decode(List<Integer> encoded) {
 		d = new LZWDictionary(this.input);
 		if (encoded.size() == 0)
 			throw new IllegalArgumentException();
-		
+
 		String out = "";
-		
+
 		int prev = encoded.get(0);
 		out += d.get(prev);
 		String s;
@@ -160,40 +156,36 @@ public class LZWCompressor {
 			} else {
 				s = d.get(prev);
 				String c = String.valueOf(s.charAt(0));
-				s += c;				
+				s += c;
 			}
-			
+
 			out += s;
-			
+
 			String entry = d.get(prev) + String.valueOf(s.charAt(0));
 			this.d.add(entry);
 			prev = next;
-			
+
 //			s += this.d.getList().get(i);
 		}
 //		System.out.println(out);
-		//		System.out.println(encoded.toString());
+		// System.out.println(encoded.toString());
 //		System.out.println(d.getList().toString());
 //		for (int i : encoded) {
 //			s += this.d.getList().get(i);
 //		}
 		d = new LZWDictionary(this.input);
 		return out;
-		
+
 	}
-
-
-
-
-
 
 	/**
 	 * Returns the compression ratio of an encoding
 	 * 
 	 * 
-	 * <p> 
-	 * The compression ration (CR) is defined as the number of characters in the input
-	 * sequence, divided by the number of codes in the encoded version of the input sequence
+	 * <p>
+	 * The compression ration (CR) is defined as the number of characters in the
+	 * input sequence, divided by the number of codes in the encoded version of the
+	 * input sequence
 	 * </p>
 	 * 
 	 * 
@@ -203,11 +195,8 @@ public class LZWCompressor {
 	public double compressionRatio() {
 //		System.out.println(this.input + " " +  this.encode());
 		return ((double) this.input.length() / (double) this.encode().size());
-		
+
 	}
-
-
-
 
 	/**
 	 * Some simple test cases that can be run independently of the junit tester
@@ -222,8 +211,6 @@ public class LZWCompressor {
 //		codec = new LZWCompressor("1231411212312312312124312413");
 //		codec = new LZWCompressor("thefatthecatthebattheratthematthesatthetatthefatthecatthebattheratthematthesatthe");
 
-
-
 		// ENCODE
 		System.out.println("original input sequence: " + codec.getInput());
 		List<Integer> enc = codec.encode();
@@ -231,12 +218,10 @@ public class LZWCompressor {
 		System.out.println("compression ratio: " + codec.compressionRatio());
 		System.out.println("-------------------");
 
-
 		// DECODE
 		String dec = codec.decode(enc);
 		System.out.println("decoded sequence: " + dec);
 		System.out.println("successful decode = " + dec.equals(codec.getInput()));
-
 
 	}
 }
