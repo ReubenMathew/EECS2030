@@ -389,7 +389,7 @@ public class RecursiveMethodsTest {
 		List<Integer> sl1 = rm.insertIntoSortedList(sl, 1);
 		int[] sa1_ = {1, 1, 3, 5};
 		List<Integer> sl1_ = a2l(sa1_);
-		assertEquals(sl1, sl1_);
+		assertEquals(sl1_, sl1);
 	}
 	
 	@Test
