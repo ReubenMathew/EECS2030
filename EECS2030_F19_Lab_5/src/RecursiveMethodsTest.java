@@ -303,7 +303,7 @@ public class RecursiveMethodsTest {
 		int[] sa = {1, 3, 5};
 		int[] sa0 = rm.insertIntoSortedArray(sa, 0);
 		int[] sa0_ = {0, 1, 3, 5};
-		assertArrayEquals(sa0, sa0_);
+		assertArrayEquals(sa0_, sa0);
 	}
 	
 	@Test
