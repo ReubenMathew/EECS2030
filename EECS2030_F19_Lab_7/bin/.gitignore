@@ -1,0 +1,13 @@
+/.DS_Store
+/AllTests.class
+/Dictionary.class
+/OneArrayDictionary.class
+/TestArrayImplementations.class
+/TestDictionary.class
+/TestOneArrayDictionary.class
+/TestTwoArrayDictionary.class
+/TwoArrayDictionary.class
+/WordNotInDictionaryException.class
+/WordAlreadyExistsInDictionaryException.class
+/DictionaryFullException.class
+/WordDefinitionPair.class
