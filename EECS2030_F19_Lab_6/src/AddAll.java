@@ -1,15 +1,15 @@
 
 public class AddAll extends ExpressionCollector {
 
-	AddAll(){
+	AddAll() {
 		super();
 	}
-	
+
 	@Override
 	public Object getValue() {
 		return this.value;
 	}
-	
+
 	@Override
 	void evaluate() {
 		Integer sum = 0;
@@ -17,9 +17,8 @@ public class AddAll extends ExpressionCollector {
 			e.evaluate();
 			sum += (Integer) e.getValue();
 		}
-		
+
 		this.value = sum;
 	}
-	
-	
+
 }

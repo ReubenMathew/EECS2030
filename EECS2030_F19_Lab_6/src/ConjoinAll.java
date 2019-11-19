@@ -1,15 +1,15 @@
 
 public class ConjoinAll extends ExpressionCollector {
 
-	ConjoinAll(){
+	ConjoinAll() {
 		super();
 	}
-	
+
 	@Override
 	public Object getValue() {
 		return this.value;
 	}
-	
+
 	@Override
 	void evaluate() {
 		Boolean prod = true;
@@ -17,8 +17,8 @@ public class ConjoinAll extends ExpressionCollector {
 			e.evaluate();
 			prod &= (Boolean) e.getValue();
 		}
-		
+
 		this.value = prod;
 	}
-	
+
 }

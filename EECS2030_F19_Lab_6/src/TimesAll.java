@@ -1,14 +1,14 @@
 
 public class TimesAll extends ExpressionCollector {
-	TimesAll(){
+	TimesAll() {
 		super();
 	}
-	
+
 	@Override
 	public Object getValue() {
 		return this.value;
 	}
-	
+
 	@Override
 	void evaluate() {
 		Integer prod = 1;
@@ -16,8 +16,8 @@ public class TimesAll extends ExpressionCollector {
 			e.evaluate();
 			prod *= (Integer) e.getValue();
 		}
-		
+
 		this.value = prod;
 	}
-	
+
 }

@@ -7,32 +7,36 @@
  */
 
 public class Expression {
-	
+
 	/**
-	 * Value of evaluation result.
-	 * Dynamically, value may be an Integer or a Boolean.
+	 * Value of evaluation result. Dynamically, value may be an Integer or a
+	 * Boolean.
 	 */
-	Object value; 
-	protected int left,right;
+	Object value;
+	protected int left, right;
+
 	/**
 	 * Initialize an expression.
-	 * @param left left integer value
+	 * 
+	 * @param left  left integer value
 	 * @param right right integer value
 	 */
-	Expression(int left, int right) { 
-		
+	Expression(int left, int right) {
+
 	}
-	
+
 	/**
 	 * After evaluation, obtain the evaluation result.
+	 * 
 	 * @return evaluation result of this expression
 	 */
 	Object getValue() {
 		return this.value;
 	}
-	
+
 	void evaluate() {
-		/* Your Task */ 
-		// Hint: Leave this empty and override it in all subclasses such as Addition, GreaterThan.
+		/* Your Task */
+		// Hint: Leave this empty and override it in all subclasses such as Addition,
+		// GreaterThan.
 	}
 }

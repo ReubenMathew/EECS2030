@@ -1,14 +1,14 @@
 
 public class DisjoinAll extends ExpressionCollector {
-	DisjoinAll(){
+	DisjoinAll() {
 		super();
 	}
-	
+
 	@Override
 	public Object getValue() {
 		return this.value;
 	}
-	
+
 	@Override
 	void evaluate() {
 		Boolean prod = false;
@@ -16,8 +16,8 @@ public class DisjoinAll extends ExpressionCollector {
 			e.evaluate();
 			prod |= (Boolean) e.getValue();
 		}
-		
+
 		this.value = prod;
 	}
-	
+
 }
