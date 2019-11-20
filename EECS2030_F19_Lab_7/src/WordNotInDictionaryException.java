@@ -1,7 +1,7 @@
 
 public class WordNotInDictionaryException extends Exception {
 
-//	public WordNotInDictionary(String s) {
-//		super(s);
-//	}
+	public WordNotInDictionaryException(String s) {
+		super();
+	}
 }

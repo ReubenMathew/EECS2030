@@ -24,20 +24,22 @@
  */
 
 public class TwoArrayDictionary implements Dictionary {
-	
+
 	/*
 	 * Use these attributes only to implement the methods.
 	 */
 	int MAX_CAPACITY = 100;
 	int count = 0; // number of entries in dictionary
-	
+
 	String[] words;
 	String[] definitions;
-	
+	WordDefinitionPair[] wd;
+
 	public TwoArrayDictionary() {
 		words = new String[100];
 		definitions = new String[100];
-		
+		wd = new WordDefinitionPair[100];
+
 	}
 
 	@Override
@@ -54,44 +56,106 @@ public class TwoArrayDictionary implements Dictionary {
 
 	@Override
 	public String getDefinition(String word) throws WordNotInDictionaryException {
-		
-		return null;
+		String[] w = getWords();
+		for (int i = 0; i < count; i++) {
+			if (w[i].equals(word))
+				return getDefinitions()[i];
+		}
+		throw new WordNotInDictionaryException(word);
 	}
 
 	@Override
 	public void insertEntry(String word, String definition)
 			throws WordAlreadyExistsInDictionaryException, DictionaryFullException {
+		for (String w : getWords())
+			if (w == word)
+				throw new WordAlreadyExistsInDictionaryException(word);
+
+		if (this.count == this.MAX_CAPACITY) {
+			throw new DictionaryFullException(word + " " + definition);
+		}
 		this.words[count] = word;
 		this.definitions[count] = definition;
-		
+		this.wd[count] = new WordDefinitionPair(word, definition);
 		this.count++;
-		
+
+	}
+
+	private static void pop(String[] array, String pop) {
+		int offset = 0;
+		for (int i = 0; i < array.length - 1; i++) {
+			if (array[i] == pop) {
+				offset++;
+			}
+			array[i] = array[i + offset];
+		}
+	}
+
+	private static void pairPop(WordDefinitionPair[] array, String pop) {
+		int offset = 0;
+		for (int i = 0; i < array.length - 1; i++) {
+			try {
+				if (array[i].getWord().equals(pop)) {
+					offset++;
+				}
+				array[i] = array[i + offset];
+			} catch (NullPointerException e) {
+
+			}
+		}
 	}
 
 	@Override
 	public String removeWord(String word) throws WordNotInDictionaryException {
-		// TODO Auto-generated method stub
-		return null;
+		for (int i = 0; i < count; i++)
+			if (words[i] == word) {
+				String def = definitions[i];
+				pop(words, word);
+				pop(definitions, def);
+				pairPop(wd, word);
+//				System.out.println(Arrays.toString(getDefinitions()));
+				this.count--;
+				return def;
+			}
+		throw new WordNotInDictionaryException(word);
 	}
 
 	@Override
 	public String[] getWords() {
-		// TODO Auto-generated method stub
-		return this.words;
+		String[] n = new String[count];
+		if (count == 0) {
+			return n;
+		}
+		for (int i = 0; i < count; i++)
+			n[i] = words[i];
+		return n;
 	}
 
 	@Override
 	public String[] getDefinitions() {
-		// TODO Auto-generated method stub
-		return this.definitions;
+		String[] n = new String[count];
+		if (count == 0) {
+			return n;
+		}
+		for (int i = 0; i < count; i++)
+			n[i] = definitions[i];
+
+		return n;
 	}
 
 	@Override
 	public WordDefinitionPair[] getEntries() {
-		// TODO Auto-generated method stub
-		return null;
+		WordDefinitionPair[] n = new WordDefinitionPair[count];
+		if (count == 0) {
+			return n;
+		}
+		for (int i = 0; i < count; i++)
+			n[i] = wd[i];
+
+		return n;
+
 	}
-	
+
 	/*
 	 * Your tasks: declare and implement methods from the Dictionary interface.
 	 */

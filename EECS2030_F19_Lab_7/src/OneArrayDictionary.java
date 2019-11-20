@@ -21,52 +21,113 @@
  */
 
 public class OneArrayDictionary implements Dictionary {
-	
+
 	int MAX_CAPACITY = 100;
 	int count = 0;
 	WordDefinitionPair[] dict;
+
+	public OneArrayDictionary() {
+		dict = new WordDefinitionPair[MAX_CAPACITY];
+	}
+
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.count;
 	}
+
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return this.count == 0 ? true : false;
 	}
+
 	@Override
 	public String getDefinition(String word) throws WordNotInDictionaryException {
-		// TODO Auto-generated method stub
-		return null;
+
+		for (WordDefinitionPair w : getEntries()) {
+			if (w.getWord().equals(word)) {
+				return w.getDefinition();
+			}
+		}
+
+		throw new WordNotInDictionaryException(word);
 	}
+
 	@Override
 	public void insertEntry(String word, String definition)
 			throws WordAlreadyExistsInDictionaryException, DictionaryFullException {
-		// TODO Auto-generated method stub
-		
+		if (count == 100)
+			throw new DictionaryFullException(word);
+		for (String w : getWords()) {
+			if (w.equals(word)) {
+				throw new WordAlreadyExistsInDictionaryException(word);
+			}
+		}
+		dict[count] = new WordDefinitionPair(word, definition);
+//			System.out.println(dict[count].toString());
+		count++;
 	}
+
 	@Override
 	public String removeWord(String word) throws WordNotInDictionaryException {
-		// TODO Auto-generated method stub
-		return null;
+		for (WordDefinitionPair w : getEntries()) {
+			if (w.getWord().equals(word)) {
+				String ret = w.getDefinition();
+				int offset = 0;
+				for (int i = 0; i < dict.length - 1; i++) {
+					try {
+						if (dict[i].getWord().equals(word)) {
+							offset++;
+						}
+						dict[i] = dict[i + offset];
+					} catch (NullPointerException e) {
+
+					}
+				}
+				count--;
+				return ret;
+			}
+		}
+
+		throw new WordNotInDictionaryException(word);
 	}
+
 	@Override
 	public String[] getWords() {
-		// TODO Auto-generated method stub
-		return null;
+		String[] n = new String[count];
+		if (count == 0) {
+			return n;
+		}
+		for (int i = 0; i < count; i++)
+			n[i] = dict[i].getWord();
+		return n;
 	}
+
 	@Override
 	public String[] getDefinitions() {
-		// TODO Auto-generated method stub
-		return null;
+		String[] n = new String[count];
+		if (count == 0) {
+			return n;
+		}
+		for (int i = 0; i < count; i++)
+			n[i] = dict[i].getDefinition();
+
+		return n;
 	}
+
 	@Override
 	public WordDefinitionPair[] getEntries() {
-		// TODO Auto-generated method stub
-		return null;
+		WordDefinitionPair[] n = new WordDefinitionPair[count];
+		if (count == 0) {
+			return n;
+		}
+		for (int i = 0; i < count; i++)
+			n[i] = dict[i];
+
+		return n;
 	}
-	
+
 	/*
 	 * Your tasks: declare and implement methods from the Dictionary interface.
 	 */
